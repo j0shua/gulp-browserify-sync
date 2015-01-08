@@ -10,6 +10,7 @@ module.exports = function(baseDir){
         uglify = require('gulp-uglify'),
         sourcemaps = require('gulp-sourcemaps'),
         ngAnnotate = require('gulp-ng-annotate');
+        jshint = require('gulp-jshint');
 
 
     gulp.task('default', function(){
@@ -18,6 +19,12 @@ module.exports = function(baseDir){
 
     });
 
+
+    gulp.task('lint', function(){
+        gulp.src(['./scripts/app.js', './scripts/**.js'])
+            .pipe(jshint('.jshintrc'))
+            .pipe(jshint.reporter('jshint-stylish'));
+    });
 
     gulp.task('js', function(){
         return browserify({
