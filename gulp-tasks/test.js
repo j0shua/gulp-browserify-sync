@@ -8,7 +8,8 @@ module.exports = function(baseDir){
         source = require('vinyl-source-stream'),
         buffer = require('vinyl-buffer'),
         uglify = require('gulp-uglify'),
-        sourcemaps = require('gulp-sourcemaps');
+        sourcemaps = require('gulp-sourcemaps'),
+        ngAnnotate = require('gulp-ng-annotate');
 
 
     gulp.task('default', function(){
@@ -27,6 +28,7 @@ module.exports = function(baseDir){
             .pipe(source('bundle.js'))
             .pipe(buffer())
             .pipe(sourcemaps.init({ loadMaps: true }))
+                .pipe(ngAnnotate())
                 .pipe(uglify())
             .pipe(sourcemaps.write('./'))
             .pipe(gulp.dest('./build/'));
